@@ -1,23 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import { Icon } from '@iconify/react';
+import Polo from './Polo';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <div>
+
+
+        <nav className="flex justify-between items-center p-5 px-20 border-b-2 border-gray-100">
+          <h1 className="italic text-3xl font-bold">Company</h1>
+          <div >
+            <button className="text-3xl bg-cart p-2 rounded-full">
+              <Icon icon="uil:cart" className="text-icon" />
+            </button>
+          </div>
+        </nav>
+
+
+        <div >
+
+        </div>
+
+      </div> */}
+      <Polo />
     </div>
   );
 }
