@@ -5,7 +5,7 @@ import Polo from './Polo';
 function App() {
   return (
     <div className="App">
-      {/* <div>
+      <div>
 
 
         <nav className="flex justify-between items-center p-5 px-20 border-b-2 border-gray-100">
@@ -22,7 +22,7 @@ function App() {
 
         </div>
 
-      </div> */}
+      </div>
       <Polo />
     </div>
   );
