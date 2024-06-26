@@ -20,7 +20,9 @@ module.exports = {
         'radio-text': "#3A4980",
         'add-to-cart': '#1D364D',
         'delivery': '#D75951',
-        'description': '#164C96'
+        'description': '#164C96',
+        'red': '#BB0043',
+        'purple': '#5D21B7',
       },
       width: {
         'img': "587px",

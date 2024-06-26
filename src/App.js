@@ -9,6 +9,9 @@ import orange from "./img/orange.png";
 import purple from "./img/purple.png";
 import ColorSelector from './components/colorSelector';
 import Carousel from './components/Carousel'
+import PhotoGallery from './components/photoGallery';
+import { CartProvider, useCart } from './context/cartContext';
+import Cart from './components/Cart';
 function App() {
   const [quantity, setQuantity] = useState(1);
   const [selectedColor, setSelectedColor] = useState(null);
@@ -17,7 +20,7 @@ function App() {
   const [price, setPrice] = useState(71.56);
   const [discountPrice, setDiscountPrice] = useState(89.95);
   const [activeTab, setActiveTab] = useState('description');
-
+  const [showGallery, setShowGallery] = useState(false);
   const handleColorChange = (colorName) => {
     setSelectedColor(colorName);
     switch (colorName) {
@@ -44,6 +47,7 @@ function App() {
         break;
     }
   };
+
 
   const decrementQuantity = () => {
     if (quantity > 1) {
@@ -72,7 +76,35 @@ function App() {
     "Durable leather is easily cleanable so you can keep your look fresh."
   ];
 
+  // const handleAddToCart = () => {
+  //   // Implement your add to cart logic here
+  //   console.log('Added to cart:', { selectedColor, size, quantity });
+  // };
 
+  const [isCartOpen, setCartOpen] = useState(false);
+  const { addToCart } = useCart();
+  const handleAddToCart = () => {
+    addToCart({
+      id: 'polo-shirt',
+      name: 'Polo Shirt',
+      image: tshirtImage,
+      price: price / quantity,
+      quantity,
+      color: selectedColor,
+      size,
+    });
+    setCartOpen(true);
+  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = (colorName) => {
+    setSelectedColor(colorName);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div className="App">
       <div>
@@ -81,7 +113,7 @@ function App() {
           <h1 className="italic text-3xl font-bold">Company</h1>
           <div>
             <button className="text-3xl bg-cart p-2 rounded-full">
-              <Icon icon="heroicons:shopping-bag" className="text-icon" />
+              <Icon icon="heroicons:shopping-bag" className="text-icon" onClick={() => setCartOpen(true)} />
             </button>
           </div>
         </nav>
@@ -90,20 +122,11 @@ function App() {
         <div className="mt-10 p-10 px-60 grid grid-cols-2">
           <div>
             <div className="border-4 border-gray-100 p-20 w-full rounded mb-10 justify-center flex">
-              <img src={tshirtImage} alt="" />
+              <img src={tshirtImage} alt="" onClick={() => openModal(selectedColor)} />
             </div>
 
             {/* Shirt Carousel */}
-            {/* <div className="flex w-full overflow-auto justify-between">
-              <button><Icon icon="fe:arrow-left" /></button>
-              <button onClick={() => handleColorChange('black')}><img src={black} alt="" className={`product-image ${selectedColor === 'black' ? 'border-2 border-black' : ''}`} /></button>
-              <button onClick={() => handleColorChange('white')}><img src={white} alt="" className={`product-image ${selectedColor === 'white' ? 'border-2 border-black' : ''}`} /></button>
-              <button onClick={() => handleColorChange('orange')}><img src={orange} alt="" className={`product-image ${selectedColor === 'orange' ? 'border-2 border-black' : ''}`} /></button>
-              <button onClick={() => handleColorChange('cyan')}> <img src={cyan} alt="" className={`product-image ${selectedColor === 'cyan' ? 'border-2 border-black' : ''}`} /></button>
-              <button onClick={() => handleColorChange('red')}><img src={red} alt="" className={`product-image ${selectedColor === 'red' ? 'border-2 border-black' : ''}`} /></button>
-              <button onClick={() => handleColorChange('purple')}> <img src={purple} alt="" className={`product-image ${selectedColor === 'purple' ? 'border-2 border-black' : ''}`} /></button>
-              <button><Icon icon="fe:arrow-right" /></button>
-            </div> */}
+
             <Carousel
               selectedColor={selectedColor}
               onColorChange={handleColorChange}
@@ -184,9 +207,12 @@ function App() {
                 <button className='font-bold text-xl hover:scale-125 ease-in-out duration-300' onClick={incrementQuantity}>+</button>
               </div>
 
-              <button className='flex bg-add-to-cart px-4 py-3 rounded-full w-60 justify-center gap-4 items-center hover:scale-105 duration-300 ease-linear'>
-                <Icon icon="heroicons:shopping-bag" className="text-white w-5 h-5" />
-                <p className='font-bold text-md text-white '>Add to Cart</p>
+              <button
+                className={`flex  bg-${selectedColor} px-4 py-3 rounded-full w-60 justify-center gap-4 items-center hover:scale-105 duration-300 ease-linear ${selectedColor ? `bg-${selectedColor}` : 'bg-add-to-cart'}`}
+                onClick={handleAddToCart}
+              >
+                <Icon icon="heroicons:shopping-bag" className={`text-white w-5 h-5text-white ${selectedColor == "white" ? "text-black" : ''}`} />
+                <p className={`font-bold text-md text-white ${selectedColor == "white" ? "text-black" : ''}`} >Add to Cart</p>
               </button>
             </div>
 
@@ -255,13 +281,19 @@ function App() {
             )}
             {activeTab === 'showcase' && (
               <div>
-                <iframe className=' m-auto mt-20 rounded-xl' width="860"
-                  height="315" src="https://www.youtube.com/embed/PdJq-dAQr-Y" title="T-Shirt Mockup Video (After Effects template)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <iframe className=' m-auto mt-20 rounded-xl' width="1200"
+                  height="515" src="https://www.youtube.com/embed/PdJq-dAQr-Y" title="T-Shirt Mockup Video (After Effects template)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
               </div>
             )}
           </div>
         </div>
       </div>
+      <Cart isOpen={isCartOpen} onClose={() => setCartOpen(false)} />
+      <PhotoGallery
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        selectedColor={selectedColor}
+      />
     </div>
   );
 }

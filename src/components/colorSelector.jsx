@@ -6,8 +6,8 @@ const colors = [
   { name: 'white', class: 'bg-gradient-to-b from-white to-white-circle' },
   { name: 'orange', class: 'bg-orange' },
   { name: 'cyan', class: 'bg-cyan' },
-  { name: 'red', class: 'bg-red-700' },
-  { name: 'purple', class: 'bg-purple-700' },
+  { name: 'red', class: 'bg-red' },
+  { name: 'purple', class: 'bg-purple' },
 ];
 
 function ColorSelector({ selectedColor, onColorChange }) {
