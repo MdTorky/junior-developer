@@ -2,6 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+
+.button-base {
+  @apply w-10 h-10 rounded-full ml-2 relative flex items-center justify-center;
+}
+
+.checkmark-base {
+  @apply absolute items-center justify-center flex top-1 left-1 right-1 bottom-1 border-4 border-white rounded-full;
+}
+
+.checkmark-icon {
+  @apply w-4 h-4 text-white;
+}
+
+.product-image {
+  @apply w-products h-products rounded-lg
+}
+
+.radio {
+  @apply flex gap-3 items-center p-1 px-2 bg-radio rounded-lg cursor-pointer
+}
+
+.radio-selected {
+  @apply bg-radio-selected text-radio-text
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
