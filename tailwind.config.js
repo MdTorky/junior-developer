@@ -19,7 +19,8 @@ module.exports = {
         'radio-selected': "#EDF0F8",
         'radio-text': "#3A4980",
         'add-to-cart': '#1D364D',
-        'delivery': '#D75951'
+        'delivery': '#D75951',
+        'description': '#164C96'
       },
       width: {
         'img': "587px",

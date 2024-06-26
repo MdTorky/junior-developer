@@ -27,6 +27,10 @@
   @apply bg-radio-selected text-radio-text
 }
 
+.active-tab {
+  @apply border-b-4 border-description text-description font-semibold
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

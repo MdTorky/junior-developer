@@ -8,14 +8,15 @@ import cyan from "./img/cyan.png";
 import orange from "./img/orange.png";
 import purple from "./img/purple.png";
 import ColorSelector from './components/colorSelector';
-
+import Carousel from './components/Carousel'
 function App() {
   const [quantity, setQuantity] = useState(1);
   const [selectedColor, setSelectedColor] = useState(null);
-  const [tshirtImage, setTshirtImage] = useState(black); // Default image to show
+  const [tshirtImage, setTshirtImage] = useState(black);
   const [size, setSize] = useState(null);
   const [price, setPrice] = useState(71.56);
   const [discountPrice, setDiscountPrice] = useState(89.95);
+  const [activeTab, setActiveTab] = useState('description');
 
   const handleColorChange = (colorName) => {
     setSelectedColor(colorName);
@@ -39,29 +40,10 @@ function App() {
         setTshirtImage(purple);
         break;
       default:
-        setTshirtImage(black); // Default to black if no matching color found
+        setTshirtImage(black);
         break;
     }
   };
-
-
-  // const decrementQuantity = () => {
-  //   if (quantity > 1) {
-  //     setQuantity(quantity - 1);
-  //     setPrice(prevPrice => (prevPrice - (prevPrice / quantity)).toFixed(2));
-  //     setDiscountPrice(prevPrice => (prevPrice - (prevPrice / quantity)).toFixed(2));
-
-  //   }
-  // };
-
-  // const incrementQuantity = () => {
-  //   if (quantity < 15) {
-  //     setQuantity(quantity + 1);
-  //     setPrice(prevPrice => (prevPrice + (prevPrice / quantity)).toFixed(2));
-  //     setDiscountPrice(prevPrice => (prevPrice + (prevPrice / quantity)).toFixed(2));
-  //   }
-  // };
-
 
   const decrementQuantity = () => {
     if (quantity > 1) {
@@ -78,6 +60,18 @@ function App() {
       setDiscountPrice((discountPrice * (quantity + 1) / quantity).toFixed(2));
     }
   };
+
+  const benefits = [
+    "Durable leather is easily cleanable so you can keep your look fresh.",
+    "Water-repellent finish and internal membrane help keep your feet dry.",
+    "Toe piece with star pattern adds durability.",
+    "Synthetic insulation helps keep you warm.",
+    "Originally designed for performance hoops, the Air unit delivers lightweight cushioning.",
+    "Plush tongue wraps over the ankle to help keep out the moisture and cold.",
+    "Rubber outsole with aggressive traction pattern adds durable grip.",
+    "Durable leather is easily cleanable so you can keep your look fresh."
+  ];
+
 
   return (
     <div className="App">
@@ -100,7 +94,7 @@ function App() {
             </div>
 
             {/* Shirt Carousel */}
-            <div className="flex w-full overflow-auto justify-between">
+            {/* <div className="flex w-full overflow-auto justify-between">
               <button><Icon icon="fe:arrow-left" /></button>
               <button onClick={() => handleColorChange('black')}><img src={black} alt="" className={`product-image ${selectedColor === 'black' ? 'border-2 border-black' : ''}`} /></button>
               <button onClick={() => handleColorChange('white')}><img src={white} alt="" className={`product-image ${selectedColor === 'white' ? 'border-2 border-black' : ''}`} /></button>
@@ -109,7 +103,11 @@ function App() {
               <button onClick={() => handleColorChange('red')}><img src={red} alt="" className={`product-image ${selectedColor === 'red' ? 'border-2 border-black' : ''}`} /></button>
               <button onClick={() => handleColorChange('purple')}> <img src={purple} alt="" className={`product-image ${selectedColor === 'purple' ? 'border-2 border-black' : ''}`} /></button>
               <button><Icon icon="fe:arrow-right" /></button>
-            </div>
+            </div> */}
+            <Carousel
+              selectedColor={selectedColor}
+              onColorChange={handleColorChange}
+            />
           </div>
 
 
@@ -181,10 +179,8 @@ function App() {
 
             <div className='py-5 flex justify-start items-center gap-3  w-full'>
               <div className='flex bg-gray-200 px-4 py-2 rounded-full w-40 justify-between items-center'>
-                {/* <button className='font-bold text-xl hover:scale-125 ease-in-out duration-300' onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</button> */}
                 <button className='font-bold text-xl hover:scale-125 ease-in-out duration-300' onClick={decrementQuantity}>-</button>
                 <h3 className='font-bold text-2xl'>{quantity}</h3>
-                {/* <button className='font-bold text-xl hover:scale-125 ease-in-out duration-300' onClick={() => setQuantity(Math.min(15, quantity + 1))}>+</button> */}
                 <button className='font-bold text-xl hover:scale-125 ease-in-out duration-300' onClick={incrementQuantity}>+</button>
               </div>
 
@@ -217,8 +213,52 @@ function App() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
 
 
+        {/* Product Description */}
+        <div className="p-4 mx-60 mb-20">
+          <div className="flex border-b border-gray-300 mb-4">
+            <button
+              className={`py-2 px-4 ${activeTab === 'description' ? 'active-tab' : 'text-gray-500'}`}
+              onClick={() => setActiveTab('description')}
+            >
+              Description
+            </button>
+            <button
+              className={`py-2 px-4 ${activeTab === 'showcase' ? 'active-tab' : 'text-gray-500'}`}
+              onClick={() => setActiveTab('showcase')}
+            >
+              Showcase
+            </button>
+          </div>
+
+          <div className="transition-all duration-500 ease-linear text-start">
+            {activeTab === 'description' && (
+              <div className='mt-10 w-90%'>
+                <h2 className="text-xl font-bold mb-5">Product Description</h2>
+                <p>
+                  When it's colder than the far side of the moon and spitting rain too, you've still got to look good. From water-repellent leather to a rugged outsole, the Lunar Force 1 adapts AF-1 style, so you can keep your flame burning when the weather hits. Metal lace hardware and extended tongue bring mountain boot toughness, while the star-studded toe design gives your look the edge
+                </p>
+                <h3 className="text-xl font-bold mt-10 mb-5">Benefits</h3>
+                <div className="gap-3 flex flex-col">
+                  {benefits.map((benefit, index) => (
+                    <div key={index} className="flex items-center">
+                      <Icon icon="material-symbols:check" className=" flex items-center w-4 h-4 bg-blue-100 text-description rounded-full mr-2 " />
+                      <p className="text-sm">{benefit}</p>
+
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            {activeTab === 'showcase' && (
+              <div>
+                <iframe className=' m-auto mt-20 rounded-xl' width="860"
+                  height="315" src="https://www.youtube.com/embed/PdJq-dAQr-Y" title="T-Shirt Mockup Video (After Effects template)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+            )}
           </div>
         </div>
       </div>
