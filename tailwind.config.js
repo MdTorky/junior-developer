@@ -18,12 +18,15 @@ module.exports = {
         'radio': "#F3F3F3",
         'radio-selected': "#EDF0F8",
         'radio-text': "#3A4980",
+        'add-to-cart': '#1D364D',
+        'delivery': '#D75951'
       },
       width: {
         'img': "587px",
         'text': '528px',
         'products': "115px",
-        'images': "520px"
+        'images': "520px",
+        '90%': '90%',
       },
       height: {
         'img': "691px",

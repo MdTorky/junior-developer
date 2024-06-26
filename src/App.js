@@ -10,14 +10,15 @@ import purple from "./img/purple.png";
 import ColorSelector from './components/colorSelector';
 
 function App() {
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [selectedColor, setSelectedColor] = useState(null);
   const [tshirtImage, setTshirtImage] = useState(black); // Default image to show
-  const [size, setSize] = useState(null); // Default image to show
+  const [size, setSize] = useState(null);
+  const [price, setPrice] = useState(71.56);
+  const [discountPrice, setDiscountPrice] = useState(89.95);
 
   const handleColorChange = (colorName) => {
     setSelectedColor(colorName);
-    // Set corresponding t-shirt image based on color selection
     switch (colorName) {
       case 'black':
         setTshirtImage(black);
@@ -43,6 +44,41 @@ function App() {
     }
   };
 
+
+  // const decrementQuantity = () => {
+  //   if (quantity > 1) {
+  //     setQuantity(quantity - 1);
+  //     setPrice(prevPrice => (prevPrice - (prevPrice / quantity)).toFixed(2));
+  //     setDiscountPrice(prevPrice => (prevPrice - (prevPrice / quantity)).toFixed(2));
+
+  //   }
+  // };
+
+  // const incrementQuantity = () => {
+  //   if (quantity < 15) {
+  //     setQuantity(quantity + 1);
+  //     setPrice(prevPrice => (prevPrice + (prevPrice / quantity)).toFixed(2));
+  //     setDiscountPrice(prevPrice => (prevPrice + (prevPrice / quantity)).toFixed(2));
+  //   }
+  // };
+
+
+  const decrementQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+      setPrice((price * (quantity - 1) / quantity).toFixed(2));
+      setDiscountPrice((discountPrice * (quantity - 1) / quantity).toFixed(2));
+    }
+  };
+
+  const incrementQuantity = () => {
+    if (quantity < 15) {
+      setQuantity(quantity + 1);
+      setPrice((price * (quantity + 1) / quantity).toFixed(2));
+      setDiscountPrice((discountPrice * (quantity + 1) / quantity).toFixed(2));
+    }
+  };
+
   return (
     <div className="App">
       <div>
@@ -51,7 +87,7 @@ function App() {
           <h1 className="italic text-3xl font-bold">Company</h1>
           <div>
             <button className="text-3xl bg-cart p-2 rounded-full">
-              <Icon icon="uil:cart" className="text-icon" />
+              <Icon icon="heroicons:shopping-bag" className="text-icon" />
             </button>
           </div>
         </nav>
@@ -101,8 +137,8 @@ function App() {
 
             {/* Price */}
             <div className="flex py-5 border-b-2 border-gray-200 gap-10 items-center w-full">
-              <p className='font-bold text-3xl ml-2'>$71.56</p>
-              <p className='text-gray-300 line-through text-xl'>$89.95</p>
+              <p className='font-bold text-3xl ml-2'>${price}</p>
+              <p className='text-gray-300 line-through text-xl'>${discountPrice}</p>
             </div>
 
 
@@ -140,6 +176,48 @@ function App() {
                 </div>
               </div>
             </div>
+
+            {/* Quantity and Add To Cart */}
+
+            <div className='py-5 flex justify-start items-center gap-3  w-full'>
+              <div className='flex bg-gray-200 px-4 py-2 rounded-full w-40 justify-between items-center'>
+                {/* <button className='font-bold text-xl hover:scale-125 ease-in-out duration-300' onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</button> */}
+                <button className='font-bold text-xl hover:scale-125 ease-in-out duration-300' onClick={decrementQuantity}>-</button>
+                <h3 className='font-bold text-2xl'>{quantity}</h3>
+                {/* <button className='font-bold text-xl hover:scale-125 ease-in-out duration-300' onClick={() => setQuantity(Math.min(15, quantity + 1))}>+</button> */}
+                <button className='font-bold text-xl hover:scale-125 ease-in-out duration-300' onClick={incrementQuantity}>+</button>
+              </div>
+
+              <button className='flex bg-add-to-cart px-4 py-3 rounded-full w-60 justify-center gap-4 items-center hover:scale-105 duration-300 ease-linear'>
+                <Icon icon="heroicons:shopping-bag" className="text-white w-5 h-5" />
+                <p className='font-bold text-md text-white '>Add to Cart</p>
+              </button>
+            </div>
+
+
+            {/* Delivery */}
+            <div className="border-2 p-3 border-gray-200 rounded-lg">
+              <div className='flex items-start gap-3'>
+                <Icon icon="mdi:truck-outline" className='text-delivery w-5 h-5 mt-1' />
+                <div className="text-start items-start">
+                  <p className='font-bold'>Free Delivery</p>
+                  <button className='text-sm mb-3 text-gray-500 underline'>Enter your Postal code for Delivery Availability</button>
+                </div>
+              </div>
+              <hr className='w-90% m-auto mb-2' />
+              <div className='flex items-start gap-3'>
+                <Icon icon="heroicons:shopping-bag" className='text-delivery w-5 h-5 mt-1' />
+                <div className="text-start items-start">
+                  <p className='font-bold'>Return Delivery</p>
+                  <div className='flex gap-1'>
+                    <p className='text-sm text-gray-500'>Free 30 days Delivery Return. </p>
+                    <button className='text-sm text-gray-500 underline'>Details</button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
 
           </div>
         </div>
