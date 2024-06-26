@@ -1,10 +1,12 @@
-// src/context/cartContext.js
 import React, { createContext, useContext, useState } from 'react';
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
+
+  const MAX_QUANTITY = 15;
+  const MIN_QUANTITY = 1;
 
   const addToCart = (newItem) => {
     setCartItems((prevItems) => {
@@ -15,10 +17,12 @@ export const CartProvider = ({ children }) => {
 
       if (existingItemIndex >= 0) {
         const updatedItems = [...prevItems];
-        updatedItems[existingItemIndex].quantity += newItem.quantity;
+        const updatedQuantity = updatedItems[existingItemIndex].quantity + newItem.quantity;
+        updatedItems[existingItemIndex].quantity = Math.min(updatedQuantity, MAX_QUANTITY);
         return updatedItems;
       } else {
-        return [...prevItems, newItem];
+        const newItemWithQuantity = { ...newItem, quantity: Math.min(newItem.quantity, MAX_QUANTITY) };
+        return [...prevItems, newItemWithQuantity];
       }
     });
   };
@@ -27,7 +31,7 @@ export const CartProvider = ({ children }) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
         item.id === id && item.color === color && item.size === size
-          ? { ...item, quantity: item.quantity + 1 }
+          ? { ...item, quantity: Math.min(item.quantity + 1, MAX_QUANTITY) }
           : item
       )
     );
@@ -36,8 +40,8 @@ export const CartProvider = ({ children }) => {
   const decrementQuantity = (id, color, size) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
-        item.id === id && item.color === color && item.size === size && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
+        item.id === id && item.color === color && item.size === size && item.quantity > MIN_QUANTITY
+          ? { ...item, quantity: Math.max(item.quantity - 1, MIN_QUANTITY) }
           : item
       ).filter((item) => item.quantity > 0)
     );

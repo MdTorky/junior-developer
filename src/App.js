@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 import black from "./img/black.png";
 import white from "./img/white.png";
@@ -20,7 +20,7 @@ function App() {
   const [price, setPrice] = useState(71.56);
   const [discountPrice, setDiscountPrice] = useState(89.95);
   const [activeTab, setActiveTab] = useState('description');
-  const [showGallery, setShowGallery] = useState(false);
+
   const handleColorChange = (colorName) => {
     setSelectedColor(colorName);
     switch (colorName) {
@@ -47,6 +47,7 @@ function App() {
         break;
     }
   };
+
 
 
   const decrementQuantity = () => {
@@ -84,16 +85,23 @@ function App() {
   const [isCartOpen, setCartOpen] = useState(false);
   const { addToCart } = useCart();
   const handleAddToCart = () => {
-    addToCart({
-      id: 'polo-shirt',
-      name: 'Polo Shirt',
-      image: tshirtImage,
-      price: price / quantity,
-      quantity,
-      color: selectedColor,
-      size,
-    });
-    setCartOpen(true);
+
+
+    if (!price || !quantity || !size || !selectedColor) {
+
+      alert("Please Select a Product")
+    } else {
+      addToCart({
+        id: 'polo-shirt',
+        name: 'Polo Shirt',
+        image: tshirtImage,
+        price: price / quantity,
+        quantity,
+        color: selectedColor,
+        size,
+      });
+      setCartOpen(true);
+    }
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -112,8 +120,8 @@ function App() {
         <nav className="flex justify-between items-center p-5 px-20 border-b-2 border-gray-100">
           <h1 className="italic text-3xl font-bold">Company</h1>
           <div>
-            <button className="text-3xl bg-cart p-2 rounded-full">
-              <Icon icon="heroicons:shopping-bag" className="text-icon" onClick={() => setCartOpen(true)} />
+            <button className="text-3xl bg-cart p-2 rounded-full w-10 h-10 flex items-center justify-center">
+              <Icon icon="heroicons:shopping-bag" className="text-icon text-md" onClick={() => setCartOpen(true)} />
             </button>
           </div>
         </nav>
@@ -282,7 +290,7 @@ function App() {
             {activeTab === 'showcase' && (
               <div>
                 <iframe className=' m-auto mt-20 rounded-xl' width="1200"
-                  height="515" src="https://www.youtube.com/embed/PdJq-dAQr-Y" title="T-Shirt Mockup Video (After Effects template)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                  height="515" src="https://www.youtube.com/embed/PdJq-dAQr-Y?autoplay=1" title="T-Shirt Mockup Video (After Effects template)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
               </div>
             )}
           </div>
