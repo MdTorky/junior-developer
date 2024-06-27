@@ -21,7 +21,6 @@ This repository contains a collection of projects showcasing various skills and 
 
 - Responsive Carousel Component
 - Dynamic Color Selector
-- Backend Integration with Express
 - Modern UI with Tailwind CSS
 - State Management in React
 
