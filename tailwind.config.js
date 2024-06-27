@@ -23,6 +23,7 @@ module.exports = {
         'description': '#164C96',
         'red': '#BB0043',
         'purple': '#5D21B7',
+        'black-color': '#000000',
       },
       width: {
         'img': "587px",

@@ -246,8 +246,8 @@ function App() {
                 className={`flex  bg-${selectedColor} px-2 md:px-4 py-2 md:py-3 rounded-full w-60 justify-center gap-4 items-center hover:scale-105 duration-300 ease-linear ${selectedColor ? `bg-${selectedColor}` : 'bg-add-to-cart'}`}
                 onClick={handleAddToCart}
               >
-                <Icon icon="heroicons:shopping-bag" className={`text-white w-4 h-4 md:w-5 md:h-5 ${selectedColor == "white" ? "text-black" : ''}`} />
-                <p className={`font-bold text-sm md:text-md text-white ${selectedColor === "white" ? "text-black" : ''}`} >Add to Cart</p>
+                <Icon icon="heroicons:shopping-bag" className={`text-white w-4 h-4 md:w-5 md:h-5 ${selectedColor == "white" ? "text-black-color" : ''}`} />
+                <p className={`font-bold text-sm md:text-md text-white ${selectedColor === "white" ? "text-black-color" : ''}`} >Add to Cart</p>
               </button>
             </div>
 
