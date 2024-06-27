@@ -16,12 +16,12 @@ function ColorSelector({ selectedColor, onColorChange }) {
       {colors.map((colorItem) => (
         <button
           key={colorItem.name}
-          className={`button-base ${colorItem.class} ${selectedColor === colorItem.name ? 'selected' : ''}`}
+          className={`rounded-full ml-2 w-8 h-8 md:w-12 md:h-12 lg:w-10 lg:h-10 relative flex items-center justify-center  ${colorItem.class} ${selectedColor === colorItem.name ? 'selected' : ''}`}
           onClick={() => onColorChange(colorItem.name)}
         >
           {selectedColor === colorItem.name && (
             <div className="checkmark-base">
-              <Icon icon="material-symbols:check" className="checkmark-icon" />
+              <Icon icon="material-symbols:check" className=" w-2 h-2 md:w-4 md:h-4 text-white" />
             </div>
           )}
         </button>

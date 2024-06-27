@@ -17,7 +17,6 @@ function App() {
   const [selectedColor, setSelectedColor] = useState("black");
   const [tshirtImage, setTshirtImage] = useState(black);
   const [size, setSize] = useState(null);
-  // const [price, setPrice] = useState(71.56);
   const [activeTab, setActiveTab] = useState('description');
 
   const handleColorChange = (colorName) => {
@@ -50,22 +49,22 @@ function App() {
   const getPriceBySize = (size) => {
     switch (size) {
       case 'small':
-        return 69.99; // Set your price for small
+        return 69.99;
       case 'medium':
-        return 71.56; // Set your price for medium
+        return 71.56;
       case 'large':
-        return 73.23; // Set your price for large
+        return 73.23;
       case 'extra large':
-        return 75.21; // Set your price for extra large
+        return 75.21
       case 'XXL':
-        return 77.41; // Set your price for XXL
+        return 77.41;
       default:
         return 0;
     }
   };
 
   const [price, setPrice] = useState(getPriceBySize("medium"));
-  const [discountPrice, setDiscountPrice] = useState(price * 1.25);
+  const [discountPrice, setDiscountPrice] = useState(price * 1.256987143655674);
 
 
 
@@ -89,7 +88,7 @@ function App() {
   const handleSizeChange = (size) => {
     setSize(size);
     setPrice(getPriceBySize(size));
-    setDiscountPrice((getPriceBySize(size) * 1.25).toFixed(2))
+    setDiscountPrice((getPriceBySize(size) * 1.256987143655674).toFixed(2))
     setQuantity(1)
   };
 
@@ -144,7 +143,7 @@ function App() {
     <div className="App">
       <div>
         {/* NavBar */}
-        <nav className="flex justify-between items-center p-5 px-20 border-b-2 border-gray-100">
+        <nav className="flex justify-evenly md:justify-between items-center p-5 md:px-20 border-b-2 border-gray-100">
           <h1 className="italic text-3xl font-bold">Company</h1>
           <div>
             <button className="text-3xl bg-cart p-2 relative rounded-full w-10 h-10 flex items-center justify-center">
@@ -155,9 +154,9 @@ function App() {
         </nav>
 
         {/* Main Shirt */}
-        <div className="mt-10 p-10 px-60 grid grid-cols-2">
+        <div className="mt-10 p-10 lg:px-60 lg:grid lg:grid-cols-2">
           <div>
-            <div className="border-4 border-gray-100 p-20 w-full rounded mb-10 justify-center flex">
+            <div className="border-4 border-gray-100 md:w-full rounded mb-10 justify-center flex">
               <img src={tshirtImage} alt="" onClick={() => openModal(selectedColor)} />
             </div>
 
@@ -171,16 +170,16 @@ function App() {
 
 
           {/* Details Side */}
-          <div className="p-10 col-span-1 md:w-text">
-            <div className="flex pb-10 border-b-2 border-gray-200 justify-between">
+          <div className="p-5 lg:p-10 col-span-1 lg:w-text">
+            <div className="md:flex pb-5 lg:pb-10 border-b-2 border-gray-200 justify-between">
               <div className="text-start">
-                <h1 className='font-bold text-2xl'>Polo Shirt</h1>
-                <p className='text-gray-300 text-sm'>Teixeira Design Studio</p>
+                <h1 className='font-bold md:text-2xl'>Polo Shirt</h1>
+                <p className='text-gray-300 text-xs whitespace-nowrap md:text-sm'>Teixeira Design Studio</p>
               </div>
-              <div className='flex gap-2 h-fit'>
+              <div className='flex justify-end mt-4 lg:mt-0 gap-4 lg:gap-2 h-fit'>
                 <button className='bg-heart py-1 px-3 rounded-lg flex items-center gap-1'>
-                  <Icon icon="mdi:heart-outline" className='text-heart-text text-md ' />
-                  <p className='text-heart-text font-semibold'>109</p>
+                  <Icon icon="mdi:heart-outline" className='text-heart-text text-xs md:text-md ' />
+                  <p className='text-heart-text text-sm md:text-md font-semibold'>109</p>
                 </button>
                 <button className='bg-save-bg py-1 px-2 rounded-lg flex items-center gap-1'>
                   <Icon icon="material-symbols:bookmark-outline" className='text-save text-md ' />
@@ -194,61 +193,61 @@ function App() {
 
             {/* Price */}
             <div className="flex py-5 border-b-2 border-gray-200 gap-10 items-center w-full">
-              <p className='font-bold text-3xl ml-2'>${price}</p>
-              <p className='text-gray-300 line-through text-xl'>${discountPrice}</p>
+              <p className='font-bold text-2xl md:text-3xl ml-2'>${price}</p>
+              <p className='text-gray-300 line-through text-lg md:text-xl'>${discountPrice}</p>
             </div>
 
 
             {/* Colors */}
             <div className="py-5 flex flex-col justify-start items-start gap-3 border-b-2 border-gray-200 w-full">
-              <p className='text-gray-300  text-md'>Choose a Color</p>
-              <div className='flex gap-12'>
+              <p className='text-gray-300 text-sm md:text-md'>Choose a Color</p>
+              <div className='flex gap-12 m-auto md:m-0'>
                 <ColorSelector selectedColor={selectedColor} onColorChange={handleColorChange} />
               </div>
             </div>
 
             {/* Size */}
             <div className='py-5 flex flex-col justify-start items-start gap-3 border-b-2 border-gray-200 w-full'>
-              <p className='text-gray-300  text-md'>Choose a Size</p>
-              <div className='flex justify-evenly w-full'>
+              <p className='text-gray-300 text-sm md:text-md'>Choose a Size</p>
+              <div className='flex justify-evenly w-full flex-wrap gap-2 lg:gap-0'>
                 <div className={`radio ${size === 'small' ? 'radio-selected' : ''}`}>
                   <input type="radio" name='size' id="small" onChange={(e) => handleSizeChange(e.target.id)} />
-                  <label htmlFor="small" className='text-sm'>Small</label>
+                  <label htmlFor="small" className='text-sm md:text-lg lg:text-sm'>Small</label>
                 </div>
                 <div className={`radio ${size === 'medium' ? 'radio-selected' : ''}`}>
                   <input type="radio" name='size' id="medium" checked={size === 'medium'} onChange={(e) => handleSizeChange(e.target.id)} />
-                  <label htmlFor="medium" className='text-sm'>Medium</label>
+                  <label htmlFor="medium" className='text-sm md:text-lg lg:text-sm'>Medium</label>
                 </div>
                 <div className={`radio ${size === 'large' ? 'radio-selected' : ''}`}>
                   <input type="radio" name='size' id="large" onChange={(e) => handleSizeChange(e.target.id)} />
-                  <label htmlFor="large" className='text-sm'>Large</label>
+                  <label htmlFor="large" className='text-sm md:text-lg lg:text-sm'>Large</label>
                 </div>
                 <div className={`radio ${size === 'extra large' ? 'radio-selected' : ''}`}>
                   <input type="radio" name='size' id="extra large" onChange={(e) => handleSizeChange(e.target.id)} />
-                  <label htmlFor="extra large" className='text-sm'>Extra Large</label>
+                  <label htmlFor="extra large" className='text-sm md:text-lg lg:text-sm'>Extra Large</label>
                 </div>
                 <div className={`radio ${size === 'XXL' ? 'radio-selected' : ''}`}>
                   <input type="radio" name='size' id="XXL" onChange={(e) => handleSizeChange(e.target.id)} />
-                  <label htmlFor="XXL" className='text-sm'>XXL</label>
+                  <label htmlFor="XXL" className='text-sm md:text-lg lg:text-sm'>XXL</label>
                 </div>
               </div>
             </div>
 
             {/* Quantity and Add To Cart */}
 
-            <div className='py-5 flex justify-start items-center gap-3  w-full'>
+            <div className='py-5 flex justify-start items-center gap-3 w-full'>
               <div className='flex bg-gray-200 px-4 py-2 rounded-full w-40 justify-between items-center'>
-                <button className='font-bold text-xl hover:scale-125 ease-in-out duration-300' onClick={decrementQuantity}>-</button>
-                <h3 className='font-bold text-2xl'>{quantity}</h3>
-                <button className='font-bold text-xl hover:scale-125 ease-in-out duration-300' onClick={incrementQuantity}>+</button>
+                <button className='font-bold text-sm md:text-xl hover:scale-125 ease-in-out duration-300' onClick={decrementQuantity}>-</button>
+                <h3 className='font-bold text-md md:text-2xl'>{quantity}</h3>
+                <button className='font-bold text-sm md:text-xl hover:scale-125 ease-in-out duration-300' onClick={incrementQuantity}>+</button>
               </div>
 
               <button
-                className={`flex  bg-${selectedColor} px-4 py-3 rounded-full w-60 justify-center gap-4 items-center hover:scale-105 duration-300 ease-linear ${selectedColor ? `bg-${selectedColor}` : 'bg-add-to-cart'}`}
+                className={`flex  bg-${selectedColor} px-2 md:px-4 py-2 md:py-3 rounded-full w-60 justify-center gap-4 items-center hover:scale-105 duration-300 ease-linear ${selectedColor ? `bg-${selectedColor}` : 'bg-add-to-cart'}`}
                 onClick={handleAddToCart}
               >
-                <Icon icon="heroicons:shopping-bag" className={`text-white w-5 h-5text-white ${selectedColor == "white" ? "text-gray-900" : ''}`} />
-                <p className={`font-bold text-md text-white ${selectedColor === "white" ? "text-gray-900" : ''}`} >Add to Cart</p>
+                <Icon icon="heroicons:shopping-bag" className={`text-white w-4 h-4 md:w-5 md:h-5 ${selectedColor == "white" ? "text-black" : ''}`} />
+                <p className={`font-bold text-sm md:text-md text-white ${selectedColor === "white" ? "text-black" : ''}`} >Add to Cart</p>
               </button>
             </div>
 
@@ -259,7 +258,7 @@ function App() {
                 <Icon icon="mdi:truck-outline" className='text-delivery w-5 h-5 mt-1' />
                 <div className="text-start items-start">
                   <p className='font-bold'>Free Delivery</p>
-                  <button className='text-sm mb-3 text-gray-500 underline'>Enter your Postal code for Delivery Availability</button>
+                  <button className='text-start text-xs md:text-sm mb-3 text-gray-500 underline'>Enter your Postal code for Delivery Availability</button>
                 </div>
               </div>
               <hr className='w-90% m-auto mb-2' />
@@ -268,8 +267,8 @@ function App() {
                 <div className="text-start items-start">
                   <p className='font-bold'>Return Delivery</p>
                   <div className='flex gap-1'>
-                    <p className='text-sm text-gray-500'>Free 30 days Delivery Return. </p>
-                    <button className='text-sm text-gray-500 underline'>Details</button>
+                    <p className='text-start text-xs md:text-sm text-gray-500'>Free 30 days Delivery Return. </p>
+                    <button className='text-start text-xs md:text-sm text-gray-500 underline'>Details</button>
                   </div>
 
                 </div>
@@ -280,8 +279,8 @@ function App() {
 
 
         {/* Product Description */}
-        <div className="p-4 mx-60 mb-20">
-          <div className="flex border-b border-gray-300 mb-4">
+        <div className="px-5 md:p-4 md:px-12 lg:p-4 lg:mx-60 mb-20">
+          <div className="flex border-b border-gray-300 mb-4 justify-center md:justify-start">
             <button
               className={`py-2 px-4 ${activeTab === 'description' ? 'active-tab' : 'text-gray-500'}`}
               onClick={() => setActiveTab('description')}
@@ -296,9 +295,9 @@ function App() {
             </button>
           </div>
 
-          <div className="transition-all duration-500 ease-linear text-start">
+          <div className="transition-all duration-500 ease-linear ">
             {activeTab === 'description' && (
-              <div className='mt-10 w-90%'>
+              <div className='mt-10 lg:w-90% text-justify'>
                 <h2 className="text-xl font-bold mb-5">Product Description</h2>
                 <p>
                   When it's colder than the far side of the moon and spitting rain too, you've still got to look good. From water-repellent leather to a rugged outsole, the Lunar Force 1 adapts AF-1 style, so you can keep your flame burning when the weather hits. Metal lace hardware and extended tongue bring mountain boot toughness, while the star-studded toe design gives your look the edge
@@ -306,8 +305,11 @@ function App() {
                 <h3 className="text-xl font-bold mt-10 mb-5">Benefits</h3>
                 <div className="gap-3 flex flex-col">
                   {benefits.map((benefit, index) => (
-                    <div key={index} className="flex items-center">
-                      <Icon icon="material-symbols:check" className=" flex items-center w-4 h-4 bg-blue-100 text-description rounded-full mr-2 " />
+                    <div key={index} className="flex items-center text-justify w-full ">
+                      <div className="px-2 rounded-full w-4 h-4 mr-2 flex items-center justify-center bg-blue-100">
+                        <Icon icon="ph:check-bold" className="text-description absolute text-xs " />
+                      </div>
+
                       <p className="text-sm">{benefit}</p>
 
                     </div>
@@ -316,9 +318,16 @@ function App() {
               </div>
             )}
             {activeTab === 'showcase' && (
-              <div>
-                <iframe className=' m-auto mt-20 rounded-xl' width="1200"
-                  height="515" src="https://www.youtube.com/embed/PdJq-dAQr-Y?autoplay=1" title="T-Shirt Mockup Video (After Effects template)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              <div className="m-auto w-90% h-80 md:h-515 mt-20 rounded-xl overflow-hidden bg-black">
+                <iframe
+                  className="w-full h-full"
+                  src="https://www.youtube.com/embed/PdJq-dAQr-Y?autoplay=1"
+                  title="T-Shirt Mockup Video (After Effects template)"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                ></iframe>
               </div>
             )}
           </div>

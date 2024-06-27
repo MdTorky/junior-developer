@@ -30,10 +30,14 @@ module.exports = {
         'products': "115px",
         'images': "520px",
         '90%': '90%',
+        '10px': '20px',
+        '1200': '1200px',
+        '800': "800px"
       },
       height: {
         'img': "691px",
         'products': "115px",
+        '515': "515px",
 
       },
       gap: {

@@ -7,7 +7,7 @@ import cyan from '../img/cyan.png';
 import red from '../img/red.png';
 import purple from '../img/purple.png';
 
-const Carousel = ({onColorChange,selectedColor}) => {
+const Carousel = ({ onColorChange, selectedColor }) => {
   const [visibleIndex, setVisibleIndex] = useState(0);
 
   const colors = [
@@ -28,19 +28,22 @@ const Carousel = ({onColorChange,selectedColor}) => {
     setVisibleIndex((prevIndex) => (prevIndex === colors.length - 1 ? 0 : prevIndex + 1));
   };
 
-  const visibleColors = colors.slice(visibleIndex, visibleIndex + 4).concat(
-    visibleIndex + 4 > colors.length ? colors.slice(0, (visibleIndex + 4) % colors.length) : []
-  );
+  const getVisibleColors = () => {
+    const visibleCount = window.innerWidth >= 1024 ? 4 : window.innerWidth >= 768 ? 3 : 2;
+    return colors.slice(visibleIndex, visibleIndex + visibleCount).concat(
+      visibleIndex + visibleCount > colors.length ? colors.slice(0, (visibleIndex + visibleCount) % colors.length) : []
+    );
+  };
 
   return (
-    <div className="flex w-full overflow-auto justify-between items-center">
+    <div className="flex md:w-full overflow-auto justify-between items-center">
       <button onClick={handlePrevClick}><Icon icon="fe:arrow-left" /></button>
-      {visibleColors.map((color, index) => (
+      {getVisibleColors().map((color, index) => (
         <button key={index} onClick={() => onColorChange(color.name)}>
           <img
             src={color.image}
             alt={color.name}
-            className={`product-image ${selectedColor === color.name ? 'border-2 border-black' : ''}`}
+            className={`product-image ${selectedColor === color.name ? 'border-2 border-black duration-300 ease-linear' : ''}`}
           />
         </button>
       ))}
