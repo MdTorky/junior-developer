@@ -11,6 +11,7 @@
 - [Components](#components)
 - [Contributing](#contributing)
 - [License](#license)
+- [Website](#website)
 
 ## Introduction
 
@@ -55,21 +56,27 @@ To run the project locally, follow these steps:
 
 ### Carousel Component
 
-![Carousel Demo](public/carousel-demo.png)
+![Carousel Demo]
+
+<!-- (public/carousel-demo.png) -->
 
 - **File:** `src/components/Carousel.js`
 - **Description:** A responsive carousel component allowing users to cycle through images and select colors.
 
 ### Color Selection
 
-![Color Selector](public/color-selector.png)
+![Color Selector]
+
+<!-- (public/color-selector.png) -->
 
 - **File:** `src/components/ColorSelector.js`
 - **Description:** Component for displaying and selecting different colors.
 
 ### API Integration
 
-![API Integration](public/api-integration.png)
+![API Integration]
+
+<!-- (public/api-integration.png) -->
 
 - **File:** `src/api/index.js`
 - **Description:** Contains API calls to the backend server for data fetching.
@@ -87,3 +94,7 @@ Contributions are welcome! Please follow these steps:
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+## Website
+
+![Website](https://junior-developer-torky.vercel.app/)
