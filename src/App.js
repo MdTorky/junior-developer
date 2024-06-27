@@ -240,13 +240,11 @@ function App() {
                 <h3 className='font-bold text-md md:text-xl'>{quantity}</h3>
                 <button className='font-bold text-sm md:text-xl hover:scale-125 ease-in-out duration-300' onClick={incrementQuantity}>+</button>
               </div>
-
               <button
                 className={`flex bg-${selectedColor} px-2 md:px-4 py-2 md:py-3 rounded-full w-60 justify-center gap-4 items-center hover:scale-105 duration-300 ease-linear ${selectedColor ? `bg-${selectedColor}` : 'bg-add-to-cart'}`}
-                onClick={handleAddToCart}
-              >
-                <Icon icon="heroicons:shopping-bag" className={`text-white w-4 h-4 md:w-5 md:h-5 ${selectedColor === "white" && "text-blue-900"}`} />
-                <p className={`font-bold text-sm md:text-md text-white ${selectedColor === "white" && "text-blue-900"}`}>Add to Cart</p>
+                onClick={handleAddToCart}>
+                <Icon icon="heroicons:shopping-bag" className={` w-4 h-4 md:w-5 md:h-5 ${selectedColor === "white" ? "text-black" : 'text-white'}`} />
+                <p className={`font-bold text-sm md:text-md  ${selectedColor === "white" ? "text-black" : 'text-white'}`}>Add to Cart</p>
               </button>
             </div>
 
