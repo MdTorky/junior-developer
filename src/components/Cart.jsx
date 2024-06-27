@@ -1,4 +1,3 @@
-// src/components/Cart.js
 import React from 'react';
 import { useCart } from '../context/cartContext';
 import CartItem from './CartItem';
@@ -25,7 +24,7 @@ const Cart = ({ isOpen, onClose }) => {
                         ))}
                         <div className="mt-10 ">
                             <hr className='w-90% m-auto mb-4' />
-                            <div className="flex justify-between px-4 mb-4">
+                            <div className="flex justify-between px-4 mb-6">
                                 <p className='text-gray-500 text-sm font-bold'>Total</p>
                                 <p className='text-gray-500 text-sm font-bold'> ${total}</p>
                             </div>

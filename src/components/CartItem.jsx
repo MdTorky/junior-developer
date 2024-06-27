@@ -1,7 +1,3 @@
-
-
-
-// src/components/CartItem.js
 import React from 'react';
 import { useCart } from '../context/cartContext';
 import { Icon } from '@iconify/react';

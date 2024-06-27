@@ -156,12 +156,11 @@ function App() {
         {/* Main Shirt */}
         <div className="mt-10 p-10 lg:px-60 lg:grid lg:grid-cols-2">
           <div>
-            <div className="border-4 border-gray-100 md:w-full rounded mb-10 justify-center flex">
+            <div className="border-4 border-gray-50 md:w-full rounded mb-10 justify-center flex">
               <img src={tshirtImage} alt="" onClick={() => openModal(selectedColor)} />
             </div>
 
             {/* Shirt Carousel */}
-
             <Carousel
               selectedColor={selectedColor}
               onColorChange={handleColorChange}
@@ -238,7 +237,7 @@ function App() {
             <div className='py-5 flex justify-start items-center gap-3 w-full'>
               <div className='flex bg-gray-200 px-4 py-2 rounded-full w-40 justify-between items-center'>
                 <button className='font-bold text-sm md:text-xl hover:scale-125 ease-in-out duration-300' onClick={decrementQuantity}>-</button>
-                <h3 className='font-bold text-md md:text-2xl'>{quantity}</h3>
+                <h3 className='font-bold text-md md:text-xl'>{quantity}</h3>
                 <button className='font-bold text-sm md:text-xl hover:scale-125 ease-in-out duration-300' onClick={incrementQuantity}>+</button>
               </div>
 
@@ -253,7 +252,7 @@ function App() {
 
 
             {/* Delivery */}
-            <div className="border-2 p-3 border-gray-200 rounded-lg">
+            <div className="border-2 p-3 border-gray-200 rounded-xl">
               <div className='flex items-start gap-3'>
                 <Icon icon="mdi:truck-outline" className='text-delivery w-5 h-5 mt-1' />
                 <div className="text-start items-start">

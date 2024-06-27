@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
-import black from '../img/black.png'; // Adjust the import paths accordingly
+import black from '../img/black.png';
 import white from '../img/white.png';
 import orange from '../img/orange.png';
 import cyan from '../img/cyan.png';
