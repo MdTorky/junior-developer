@@ -11,7 +11,7 @@ import ColorSelector from './components/colorSelector';
 import Carousel from './components/Carousel'
 import PhotoGallery from './components/photoGallery';
 import { CartProvider, useCart } from './context/cartContext';
-import Cart from './components/cart';
+import Cart from './components/Cart';
 function App() {
   const [quantity, setQuantity] = useState(1);
   const [selectedColor, setSelectedColor] = useState("black");
