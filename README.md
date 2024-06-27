@@ -97,4 +97,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Website
 
-![Website](https://junior-developer-torky.vercel.app/)
+https://junior-developer-torky.vercel.app/
