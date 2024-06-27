@@ -21,7 +21,6 @@ This repository contains a collection of projects showcasing various skills and 
 
 - Responsive Carousel Component
 - Dynamic Color Selector
-- Backend Integration with Express
 - Modern UI with Tailwind CSS
 - State Management in React
 
@@ -93,8 +92,8 @@ Contributions are welcome! Please follow these steps:
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+This project is licensed under the MIT License.
 
 ## Website
 
-https://junior-developer-torky.vercel.app/
+Visit the live project at [Junior Developer Project](https://junior-developer-torky.vercel.app/)
