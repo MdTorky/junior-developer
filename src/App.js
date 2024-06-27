@@ -11,14 +11,13 @@ import ColorSelector from './components/colorSelector';
 import Carousel from './components/Carousel'
 import PhotoGallery from './components/photoGallery';
 import { CartProvider, useCart } from './context/cartContext';
-import Cart from './components/Cart';
+import Cart from './components/cart';
 function App() {
   const [quantity, setQuantity] = useState(1);
-  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedColor, setSelectedColor] = useState("black");
   const [tshirtImage, setTshirtImage] = useState(black);
   const [size, setSize] = useState(null);
-  const [price, setPrice] = useState(71.56);
-  const [discountPrice, setDiscountPrice] = useState(89.95);
+  // const [price, setPrice] = useState(71.56);
   const [activeTab, setActiveTab] = useState('description');
 
   const handleColorChange = (colorName) => {
@@ -48,6 +47,27 @@ function App() {
     }
   };
 
+  const getPriceBySize = (size) => {
+    switch (size) {
+      case 'small':
+        return 69.99; // Set your price for small
+      case 'medium':
+        return 71.56; // Set your price for medium
+      case 'large':
+        return 73.23; // Set your price for large
+      case 'extra large':
+        return 75.21; // Set your price for extra large
+      case 'XXL':
+        return 77.41; // Set your price for XXL
+      default:
+        return 0;
+    }
+  };
+
+  const [price, setPrice] = useState(getPriceBySize("medium"));
+  const [discountPrice, setDiscountPrice] = useState(price * 1.25);
+
+
 
 
   const decrementQuantity = () => {
@@ -66,6 +86,13 @@ function App() {
     }
   };
 
+  const handleSizeChange = (size) => {
+    setSize(size);
+    setPrice(getPriceBySize(size));
+    setDiscountPrice((getPriceBySize(size) * 1.25).toFixed(2))
+    setQuantity(1)
+  };
+
   const benefits = [
     "Durable leather is easily cleanable so you can keep your look fresh.",
     "Water-repellent finish and internal membrane help keep your feet dry.",
@@ -77,16 +104,12 @@ function App() {
     "Durable leather is easily cleanable so you can keep your look fresh."
   ];
 
-  // const handleAddToCart = () => {
-  //   // Implement your add to cart logic here
-  //   console.log('Added to cart:', { selectedColor, size, quantity });
-  // };
 
   const [isCartOpen, setCartOpen] = useState(false);
-  const { addToCart } = useCart();
+  const { addToCart, totalItems } = useCart();
   const handleAddToCart = () => {
 
-
+    const price = getPriceBySize(size);
     if (!price || !quantity || !size || !selectedColor) {
 
       alert("Please Select a Product")
@@ -95,7 +118,7 @@ function App() {
         id: 'polo-shirt',
         name: 'Polo Shirt',
         image: tshirtImage,
-        price: price / quantity,
+        price: price,
         quantity,
         color: selectedColor,
         size,
@@ -113,6 +136,10 @@ function App() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+  useEffect(() => {
+    handleSizeChange('medium');
+  }, []);
+
   return (
     <div className="App">
       <div>
@@ -120,8 +147,9 @@ function App() {
         <nav className="flex justify-between items-center p-5 px-20 border-b-2 border-gray-100">
           <h1 className="italic text-3xl font-bold">Company</h1>
           <div>
-            <button className="text-3xl bg-cart p-2 rounded-full w-10 h-10 flex items-center justify-center">
+            <button className="text-3xl bg-cart p-2 relative rounded-full w-10 h-10 flex items-center justify-center">
               <Icon icon="heroicons:shopping-bag" className="text-icon text-md" onClick={() => setCartOpen(true)} />
+              {totalItems > 0 && <span className="cart-count absolute top-0 right-0 bg-add-to-cart text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">{totalItems}</span>}
             </button>
           </div>
         </nav>
@@ -184,24 +212,24 @@ function App() {
               <p className='text-gray-300  text-md'>Choose a Size</p>
               <div className='flex justify-evenly w-full'>
                 <div className={`radio ${size === 'small' ? 'radio-selected' : ''}`}>
-                  <input type="radio" name='size' id="small" onChange={(e) => setSize(e.target.id)} />
-                  <label for="small" className='text-sm'>Small</label>
+                  <input type="radio" name='size' id="small" onChange={(e) => handleSizeChange(e.target.id)} />
+                  <label htmlFor="small" className='text-sm'>Small</label>
                 </div>
                 <div className={`radio ${size === 'medium' ? 'radio-selected' : ''}`}>
-                  <input type="radio" name='size' id="medium" className='bg-black' onChange={(e) => setSize(e.target.id)} />
-                  <label for="medium" className='text-sm'>Medium</label>
+                  <input type="radio" name='size' id="medium" checked={size === 'medium'} onChange={(e) => handleSizeChange(e.target.id)} />
+                  <label htmlFor="medium" className='text-sm'>Medium</label>
                 </div>
                 <div className={`radio ${size === 'large' ? 'radio-selected' : ''}`}>
-                  <input type="radio" name='size' id="large" className='bg-black' onChange={(e) => setSize(e.target.id)} />
-                  <label for="large" className='text-sm' >Large</label>
+                  <input type="radio" name='size' id="large" onChange={(e) => handleSizeChange(e.target.id)} />
+                  <label htmlFor="large" className='text-sm'>Large</label>
                 </div>
                 <div className={`radio ${size === 'extra large' ? 'radio-selected' : ''}`}>
-                  <input type="radio" name='size' id="extra large" className='bg-black' onChange={(e) => setSize(e.target.id)} />
-                  <label for="extra large" className='text-sm'>Extra Large</label>
+                  <input type="radio" name='size' id="extra large" onChange={(e) => handleSizeChange(e.target.id)} />
+                  <label htmlFor="extra large" className='text-sm'>Extra Large</label>
                 </div>
                 <div className={`radio ${size === 'XXL' ? 'radio-selected' : ''}`}>
-                  <input type="radio" name='size' id="XXL" className='bg-black' onChange={(e) => setSize(e.target.id)} />
-                  <label for="XXL" className='text-sm'>XXL</label>
+                  <input type="radio" name='size' id="XXL" onChange={(e) => handleSizeChange(e.target.id)} />
+                  <label htmlFor="XXL" className='text-sm'>XXL</label>
                 </div>
               </div>
             </div>
@@ -219,8 +247,8 @@ function App() {
                 className={`flex  bg-${selectedColor} px-4 py-3 rounded-full w-60 justify-center gap-4 items-center hover:scale-105 duration-300 ease-linear ${selectedColor ? `bg-${selectedColor}` : 'bg-add-to-cart'}`}
                 onClick={handleAddToCart}
               >
-                <Icon icon="heroicons:shopping-bag" className={`text-white w-5 h-5text-white ${selectedColor == "white" ? "text-black" : ''}`} />
-                <p className={`font-bold text-md text-white ${selectedColor == "white" ? "text-black" : ''}`} >Add to Cart</p>
+                <Icon icon="heroicons:shopping-bag" className={`text-white w-5 h-5text-white ${selectedColor == "white" ? "text-gray-900" : ''}`} />
+                <p className={`font-bold text-md text-white ${selectedColor === "white" ? "text-gray-900" : ''}`} >Add to Cart</p>
               </button>
             </div>
 
